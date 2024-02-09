@@ -52,6 +52,7 @@ model User {
 
   accounts Account[]
   sessions Session[]
+  conversations Conversation[]
   
 
   stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
