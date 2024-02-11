@@ -82,7 +82,7 @@ model VerificationToken {
 
 
 model Conversation {
-  id        String    @id
+  id        String    @id @map("_id")
   title     String
   avatar    String?
   content   Json?
