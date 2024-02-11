@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 import { getComments } from "@/lib/api";
 import { nanoid } from "@/lib/utils";
 import { getServerSession } from "@/lib/auth";
+import { getToken } from "next-auth/jwt";
 
 export default async function handler(
   req: NextApiRequest,
@@ -19,8 +20,9 @@ export default async function handler(
       res.status(400).json({ error: "Bad request" });
       return;
     }
-    const session = await getServerSession(req, res);
-    if (!session?.user?.id) {
+    const token = await getToken({ req }) as any
+    //const session = await getServerSession(req, res);
+    if (!token?.id) {
       res
         .status(401)
         .json({ error: "Need to be logged in to leave a comment." });
@@ -34,7 +36,7 @@ export default async function handler(
         position,
         content,
         parentCommentId,
-        userId: session.user.id,
+        userId: token.id,
       },
     });
     res.status(200).json(response);
