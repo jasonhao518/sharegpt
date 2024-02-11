@@ -6,30 +6,50 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/lib/prisma";
 
 export const authOptions: NextAuthOptions = {
-  session: {
-    strategy: "jwt",
-  },
-  cookies: {
-    sessionToken: {
-      name: `__Secure-next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        domain: `.${process.env.ROOT_DOMAIN}`,
-        secure: true,
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          username: profile.name.replace(/\s/g, "").toLowerCase(),
+          email: profile.email,
+          image: profile.picture,
+        };
       },
+    }),
+    TwitterProvider({
+      clientId: process.env.TWITTER_CLIENT_ID as string,
+      clientSecret: process.env.TWITTER_CLIENT_SECRET as string,
+      profile(profile: TwitterLegacyProfile) {
+        return {
+          id: profile.id_str,
+          name: profile.name,
+          username: profile.screen_name,
+          twitter: profile.screen_name,
+          // @ts-ignore
+          email: profile.email && profile.email != "" ? profile.email : null,
+          image: profile.profile_image_url_https.replace(
+            /_normal\.(jpg|png|gif)$/,
+            ".$1"
+          ),
+        };
+      },
+    }),
+  ],
+  secret: process.env.SECRET,
+  callbacks: {
+    async session({ session, user }) {
+      // @ts-ignore
+      session.user.id = user.id;
+      // @ts-ignore
+      session.user.username = user.username;
+      return session;
     },
   },
-  providers: [
-
-    
-  ],
-  
-  callbacks: {
-
-  },
-  // debug: process.env.NODE_ENV !== "production"
-}
+};
 
 export default NextAuth(authOptions);
