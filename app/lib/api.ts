@@ -17,11 +17,6 @@ export async function getConvos({
       title: {
         not: "Untitled",
       },
-      ...(search && {
-        title: {
-          search,
-        },
-      }),
     },
     select: {
       id: true,
