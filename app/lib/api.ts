@@ -50,7 +50,7 @@ export async function getConvos({
     skip,
   });
 
-  return convos.map((convo) => ({
+  return convos.map((convo: any) => ({
     ...convo,
     saves: convo._count.saves,
     comments: convo._count.comments,
@@ -95,7 +95,7 @@ export async function getConvo(id: string) {
     ? {
         ...convo,
         comments:
-          convo?.comments.map((comment) => ({
+          convo?.comments.map((comment: any) => ({
             ...comment,
             createdAt: comment.createdAt.toISOString(),
           })) ?? [],
@@ -127,7 +127,7 @@ export async function getComments(id: string) {
     },
   });
 
-  return comments.map((comment) => ({
+  return comments.map((comment: any) => ({
     ...comment,
     createdAt: comment.createdAt.toISOString(),
   }));
