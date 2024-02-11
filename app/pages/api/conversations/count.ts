@@ -13,7 +13,9 @@ export default async function handler(
     const response = await prisma.conversation.count({
       ...(search && {
         where: {
-
+          title: {
+            search: search,
+          },
         },
       }),
     });

@@ -6,14 +6,6 @@ import { getServerSession } from "next-auth/next";
 import { GetServerSidePropsContext } from "next";
 import { authOptions } from "./api/auth/[...nextauth]";
 
-interface Conversation {
-  createdAt: Date; // Assuming these are Date objects
-  updatedAt: Date;
-  // Include other properties of conversation here
-}
-interface Save {
-  conversation: Conversation;
-}
 export default function Dashboard({ convos }: { convos: ConversationMeta[] }) {
   return (
     <Layout>
@@ -63,7 +55,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     include: {
       conversation: true,
     },
-  }) as Array<Save>;
+  });
 
   return {
     props: {

@@ -17,6 +17,11 @@ export async function getConvos({
       title: {
         not: "Untitled",
       },
+      ...(search && {
+        title: {
+          search,
+        },
+      }),
     },
     select: {
       id: true,
@@ -45,7 +50,7 @@ export async function getConvos({
     skip,
   });
 
-  return convos.map((convo: any) => ({
+  return convos.map((convo) => ({
     ...convo,
     saves: convo._count.saves,
     comments: convo._count.comments,
@@ -90,7 +95,7 @@ export async function getConvo(id: string) {
     ? {
         ...convo,
         comments:
-          convo?.comments.map((comment: any) => ({
+          convo?.comments.map((comment) => ({
             ...comment,
             createdAt: comment.createdAt.toISOString(),
           })) ?? [],
@@ -122,7 +127,7 @@ export async function getComments(id: string) {
     },
   });
 
-  return comments.map((comment: any) => ({
+  return comments.map((comment) => ({
     ...comment,
     createdAt: comment.createdAt.toISOString(),
   }));
