@@ -5,6 +5,7 @@ const nextConfig = {
   images: {
     domains: [
       "avatar.vercel.sh",
+      "avatars.githubusercontent.com",
       "s.gravatar.com",
       "lh3.googleusercontent.com",
       "www.datocms-assets.com",
@@ -75,7 +76,7 @@ const nextConfig = {
     return [
       {
         source: "/explore",
-        destination: "https://sharegpt.com",
+        destination: "https://share.chatlog.ai",
         permanent: false,
       },
       {
@@ -109,7 +110,7 @@ const nextConfig = {
             value: "shareg.pt",
           },
         ],
-        destination: "https://sharegpt.com",
+        destination: "https://share.chatlog.ai",
         permanent: false,
       },
       {
@@ -120,7 +121,7 @@ const nextConfig = {
             value: "shareg.pt",
           },
         ],
-        destination: "https://sharegpt.com/c/:path*",
+        destination: "https://share.chatlog.ai/c/:path*",
         permanent: false,
       },
     ];
