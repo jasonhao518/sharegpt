@@ -82,7 +82,7 @@ model VerificationToken {
 
 
 model Conversation {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  id        String    @id
   title     String
   avatar    String?
   content   Json?
