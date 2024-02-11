@@ -39,7 +39,7 @@ export default function ExploreLayout({
           type === "top" ? "Top" : "New"
         } Conversations on ShareGPT`,
         description,
-        canonical: `https://share.chatlog.ai/explore${
+        canonical: `https://sharegpt.com/explore${
           type === "top" ? "" : "/new"
         }`,
       }}

@@ -43,7 +43,7 @@ export async function getServerSideProps({
   req: NextApiRequest;
   res: NextApiResponse;
 }) {
-  const hostname = `https://share.chatlog.ai`;
+  const hostname = `https://sharegpt.com`;
 
   // Get all conversations
   const conversations = await prisma.conversation.findMany({

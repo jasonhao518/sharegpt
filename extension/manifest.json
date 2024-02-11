@@ -26,5 +26,5 @@
       "run_at": "document_end"
     }
   ],
-  "host_permissions": ["https://share.chatlog.ai/*"]
+  "host_permissions": ["https://sharegpt.com/*"]
 }
