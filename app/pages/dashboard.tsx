@@ -5,6 +5,7 @@ import { ConversationMeta } from "@/lib/types";
 import { getServerSession } from "next-auth/next";
 import { GetServerSidePropsContext } from "next";
 import { authOptions } from "./api/auth/[...nextauth]";
+import { getToken } from "next-auth/jwt";
 
 export default function Dashboard({ convos }: { convos: ConversationMeta[] }) {
   return (
@@ -33,9 +34,10 @@ export default function Dashboard({ convos }: { convos: ConversationMeta[] }) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res } = context;
-  const session = await getServerSession(req, res, authOptions);
+  //const session = await getServerSession(req, res, authOptions);
+  const token = await getToken({ req })
   // @ts-expect-error
-  if (!session?.user?.id) {
+  if (!token.id) {
     return {
       redirect: {
         destination: "/",
@@ -47,7 +49,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const convos = await prisma.save.findMany({
     where: {
       // @ts-expect-error
-      userId: session.user.id,
+      userId: token.id,
     },
     orderBy: {
       createdAt: "desc",
