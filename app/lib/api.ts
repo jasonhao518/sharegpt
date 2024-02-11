@@ -19,7 +19,7 @@ export async function getConvos({
       },
       ...(search && {
         title: {
-          search,
+          contains: search,
         },
       }),
     },

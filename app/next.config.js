@@ -5,6 +5,7 @@ const nextConfig = {
   images: {
     domains: [
       "avatar.vercel.sh",
+      "avatars.githubusercontent.com",
       "s.gravatar.com",
       "lh3.googleusercontent.com",
       "www.datocms-assets.com",

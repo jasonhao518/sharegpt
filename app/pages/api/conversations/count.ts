@@ -14,7 +14,7 @@ export default async function handler(
       ...(search && {
         where: {
           title: {
-            search: search,
+            contains: search,
           },
         },
       }),
